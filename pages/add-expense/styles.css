@@ -1,0 +1,37 @@
+/* Dodawanie wydatku */
+.input-with-unit {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-unit input {
+  padding-right: 3rem;
+}
+
+.unit {
+  position: absolute;
+  right: 1rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.receipt-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.receipt-preview {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.receipt-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid var(--border);
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Historia wydatków">
+    <title>Historia - Wydatki Checker</title>
+    <link rel="stylesheet" href="shared/base.css">
+    <link rel="stylesheet" href="pages/history/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <a href="index.html" class="back-btn" aria-label="Wróć">
+                <span class="arrow-left"></span>
+            </a>
+            <h1>Historia</h1>
+            <div class="header-actions"></div>
+        </header>
+
+        <div class="container">
+            <div class="filter-tabs">
+                <button class="tab active" data-filter="all">Wszystko</button>
+                <button class="tab" data-filter="week">Tydzień</button>
+                <button class="tab" data-filter="month">Miesiąc</button>
+            </div>
+
+            <div class="history-filters">
+                <div class="history-search">
+                    <input type="search" id="history-search" placeholder="Szukaj w historii" aria-label="Szukaj w historii">
+                </div>
+                <div class="history-category">
+                    <select id="history-category" aria-label="Filtruj po kategorii">
+                        <option value="all">Wszystkie kategorie</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="history-list" class="history-list"></div>
+        </div>
+
+        <div id="receipt-modal" class="modal receipt-modal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-label="Podgląd paragonu">
+                <div class="modal-header">
+                    <h2>Paragon</h2>
+                    <button type="button" class="close-btn" data-receipt-close>×</button>
+                </div>
+                <div class="modal-body">
+                    <img id="receipt-modal-image" src="" alt="Podgląd paragonu">
+                </div>
+            </div>
+        </div>
+
+        <div id="offline-indicator" class="offline-indicator">
+            <span>Tryb offline</span>
+        </div>
+    </div>
+
+    <script src="shared/state.js"></script>
+    <script src="shared/storage.js"></script>
+    <script src="shared/date.js"></script>
+    <script src="shared/expenses.js"></script>
+    <script src="shared/file.js"></script>
+    <script src="features/categories/index.js"></script>
+    <script src="features/theme/index.js"></script>
+    <script src="features/online/index.js"></script>
+    <script src="features/notifications/index.js"></script>
+    <script src="features/service-worker/index.js"></script>
+    <script src="features/receipts/index.js"></script>
+    <script src="shared/app.js"></script>
+    <script src="pages/history/index.js"></script>
+</body>
+</html>

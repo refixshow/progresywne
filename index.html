@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Aplikacja do zarządzania wydatkami z powiadomieniami i trybem offline">
+    <title>Wydatki Checker - Dashboard</title>
+    <link rel="stylesheet" href="shared/base.css">
+    <link rel="stylesheet" href="pages/dashboard/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>Wydatki Checker</h1>
+            <div class="header-actions">
+                <button id="settings-btn" class="icon-btn" aria-label="Ustawienia">
+                    <span class="icon-settings"></span>
+                </button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="budget-summary">
+                <div class="budget-info">
+                    <p class="budget-label">Limit miesięczny</p>
+                    <p class="budget-amount" id="budget-limit">500.00 zł</p>
+                </div>
+                <div class="budget-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span id="spent-amount">0.00 zł</span>
+                        <span id="remaining-amount">500.00 zł pozostało</span>
+                    </div>
+                </div>
+                <p class="budget-percent" id="budget-percent">0% wykorzystane</p>
+            </div>
+
+            <div class="quick-actions">
+                <a href="add-expense.html" class="btn btn-primary">
+                    <span class="btn-icon">+</span>
+                    Dodaj wydatek
+                </a>
+                <a href="history.html" class="btn btn-secondary">
+                    <span class="btn-icon">Lista</span>
+                    Historia
+                </a>
+            </div>
+
+            <div class="recent-expenses">
+                <h2>Ostatnie wydatki</h2>
+                <div id="recent-list" class="expense-list"></div>
+            </div>
+        </div>
+
+        <div id="settings-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Ustawienia</h2>
+                    <button id="close-settings" class="close-btn">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="budget-input">Miesięczny limit (zł)</label>
+                        <input type="number" id="budget-input" step="0.01" min="0" placeholder="500.00">
+                    </div>
+                    <div class="form-group">
+                        <label for="notification-time">Godzina powiadomień</label>
+                        <input type="time" id="notification-time" value="09:00">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="enable-notifications" checked>
+                            Włącz codzienne powiadomienia
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="theme-select">Motyw</label>
+                        <select id="theme-select">
+                            <option value="system">System</option>
+                            <option value="light">Jasny</option>
+                            <option value="dark">Ciemny</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <h3>Zarządzanie kategoriami</h3>
+                        <div class="category-manager">
+                            <div class="category-input-group">
+                                <input type="text" id="new-category-name" placeholder="Nazwa kategorii">
+                                <input type="text" id="new-category-icon" placeholder="Ikona" maxlength="3">
+                                <button type="button" id="add-category-btn" class="btn btn-secondary">Dodaj</button>
+                            </div>
+                            <div id="categories-list" class="categories-list"></div>
+                        </div>
+                    </div>
+                    
+                    <button id="save-settings" class="btn btn-primary btn-full">Zapisz</button>
+                    <button id="clear-data" class="btn btn-danger btn-full">Wyczyść wszystkie dane</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Paragonu -->
+        <div id="receipt-modal" class="modal receipt-modal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-label="Podgląd paragonu">
+                <div class="modal-header">
+                    <h2>Paragon</h2>
+                    <button type="button" class="close-btn" data-receipt-close>×</button>
+                </div>
+                <div class="modal-body">
+                    <img id="receipt-modal-image" src="" alt="Podgląd paragonu">
+                </div>
+            </div>
+        </div>
+
+        <!-- Offline Indicator -->
+        <div id="offline-indicator" class="offline-indicator">
+            <span>Tryb offline</span>
+        </div>
+    </div>
+
+    <script src="shared/state.js"></script>
+    <script src="shared/storage.js"></script>
+    <script src="shared/date.js"></script>
+    <script src="shared/expenses.js"></script>
+    <script src="shared/file.js"></script>
+    <script src="features/categories/index.js"></script>
+    <script src="features/theme/index.js"></script>
+    <script src="features/online/index.js"></script>
+    <script src="features/notifications/index.js"></script>
+    <script src="features/service-worker/index.js"></script>
+    <script src="features/receipts/index.js"></script>
+    <script src="shared/app.js"></script>
+    <script src="pages/dashboard/index.js"></script>
+</body>
+</html>

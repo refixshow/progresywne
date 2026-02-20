@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Dodaj nowy wydatek">
+    <title>Dodaj wydatek - Wydatki Checker</title>
+    <link rel="stylesheet" href="shared/base.css">
+    <link rel="stylesheet" href="pages/add-expense/styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icons/icon-192.png" type="image/png">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <a href="index.html" class="back-btn" aria-label="Wróć">
+                <span class="arrow-left"></span>
+            </a>
+            <h1>Nowy wydatek</h1>
+            <div class="header-actions"></div>
+        </header>
+
+        <div class="container">
+            <form id="expense-form">
+                <div class="form-group">
+                    <label for="expense-amount">Kwota</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="expense-amount" step="0.01" min="0.01" required placeholder="0.00">
+                        <span class="unit">zł</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="expense-category">Kategoria</label>
+                    <select id="expense-category" required>
+                        <option value="">Wybierz kategorię</option>
+                        <option value="jedzenie">Jedzenie</option>
+                        <option value="transport">Transport</option>
+                        <option value="rozrywka">Rozrywka</option>
+                        <option value="rachunki">Rachunki</option>
+                        <option value="inne">Inne</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="expense-description">Opis (opcjonalnie)</label>
+                    <input type="text" id="expense-description" placeholder="np. Zakupy spożywcze">
+                </div>
+
+                <div class="form-group">
+                    <label for="expense-date">Data</label>
+                    <input type="date" id="expense-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Zdjęcie paragonu (opcjonalnie)</label>
+                    <div class="receipt-upload">
+                        <button type="button" id="take-photo-btn" class="btn btn-outline">
+                            <span class="btn-icon">Aparat</span>
+                            Zrób zdjęcie
+                        </button>
+                        <input type="file" id="receipt-file" accept="image/*" capture="environment" style="display: none;">
+                        <div id="receipt-preview" class="receipt-preview"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-full">Dodaj wydatek</button>
+            </form>
+        </div>
+
+        <div id="offline-indicator" class="offline-indicator">
+            <span>Tryb offline</span>
+        </div>
+    </div>
+
+    <script src="shared/state.js"></script>
+    <script src="shared/storage.js"></script>
+    <script src="shared/date.js"></script>
+    <script src="shared/expenses.js"></script>
+    <script src="shared/file.js"></script>
+    <script src="features/categories/index.js"></script>
+    <script src="features/theme/index.js"></script>
+    <script src="features/online/index.js"></script>
+    <script src="features/notifications/index.js"></script>
+    <script src="features/service-worker/index.js"></script>
+    <script src="features/receipts/index.js"></script>
+    <script src="shared/app.js"></script>
+    <script src="pages/add-expense/index.js"></script>
+</body>
+</html>
