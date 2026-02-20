@@ -2,7 +2,9 @@ async function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) return;
 
     try {
-        const registration = await navigator.serviceWorker.register('/service-worker.js');
+        const swUrl = new URL('service-worker.js', window.location.href);
+        const scopePath = new URL('.', window.location.href).pathname;
+        const registration = await navigator.serviceWorker.register(swUrl, { scope: scopePath });
         console.log('Service Worker zarejestrowany:', registration);
 
         navigator.serviceWorker.addEventListener('controllerchange', () => {

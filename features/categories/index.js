@@ -24,15 +24,23 @@ function addCategory(name, icon) {
         return false;
     }
     state.categories.push({ id, name, icon: icon || name.substring(0, 3).toUpperCase() });
-    saveStateToStorage();
+    const saved = saveStateToStorage();
+    if (!saved) {
+        state.categories.pop();
+        return false;
+    }
     return true;
 }
 
 function removeCategory(categoryId) {
     const index = state.categories.findIndex(c => c.id === categoryId);
     if (index > -1) {
-        state.categories.splice(index, 1);
-        saveStateToStorage();
+        const [removed] = state.categories.splice(index, 1);
+        const saved = saveStateToStorage();
+        if (!saved) {
+            state.categories.splice(index, 0, removed);
+            return false;
+        }
         return true;
     }
     return false;

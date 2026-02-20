@@ -1,24 +1,36 @@
-document.addEventListener("DOMContentLoaded", () => {
-  initializeApp();
-});
+let appInitializationPromise = null;
+let notificationIntervalId = null;
 
-async function initializeApp() {
-  await registerServiceWorker();
-
-  loadStateFromStorage();
-
-  applyTheme(state.theme);
-
-  checkOnlineStatus();
-
-  if (state.notificationsEnabled) {
-    requestNotificationPermission();
+function initializeApp() {
+  if (appInitializationPromise) {
+    return appInitializationPromise;
   }
 
-  checkDailyNotification();
+  appInitializationPromise = (async () => {
+    await registerServiceWorker();
 
-  setInterval(checkDailyNotification, 60 * 60 * 1000);
+    loadStateFromStorage();
 
-  window.addEventListener("online", checkOnlineStatus);
-  window.addEventListener("offline", checkOnlineStatus);
+    applyTheme(state.theme);
+
+    checkOnlineStatus();
+
+    if (state.notificationsEnabled) {
+      requestNotificationPermission();
+    }
+
+    checkDailyNotification();
+
+    if (!notificationIntervalId) {
+      notificationIntervalId = setInterval(
+        checkDailyNotification,
+        60 * 60 * 1000,
+      );
+    }
+
+    window.addEventListener("online", checkOnlineStatus);
+    window.addEventListener("offline", checkOnlineStatus);
+  })();
+
+  return appInitializationPromise;
 }

@@ -52,7 +52,14 @@ async function handleExpenseSubmit(e) {
   };
 
   state.expenses.push(expense);
-  saveStateToStorage();
+  const saved = saveStateToStorage();
+  if (!saved) {
+    state.expenses.pop();
+    alert(
+      "Nie udalo sie zapisac wydatku. Sprobuj bez zdjecia paragonu lub wyczysc czesc danych.",
+    );
+    return;
+  }
 
   const totalSpent = calculateTotalSpent();
   if (totalSpent > state.budget) {

@@ -15,10 +15,13 @@ function showNotification(title, body) {
     return;
   }
 
+  const iconUrl = new URL("icons/icon-192.png", window.location.href).href;
+  const badgeUrl = new URL("icons/icon-72.png", window.location.href).href;
+
   const notification = new Notification(title, {
     body,
-    icon: "/icons/icon-192.png",
-    badge: "/icons/icon-72.png",
+    icon: iconUrl,
+    badge: badgeUrl,
     tag: "expense-notification",
     requireInteraction: false,
   });

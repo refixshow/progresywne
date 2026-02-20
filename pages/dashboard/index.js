@@ -123,7 +123,11 @@ function saveSettingsData() {
     applyTheme(themeSelect.value);
   }
 
-  saveStateToStorage();
+  const saved = saveStateToStorage();
+  if (!saved) {
+    alert("Nie udalo sie zapisac ustawien. Sprawdz ilosc danych zapisanych w aplikacji.");
+    return;
+  }
   updateDashboard();
   closeSettingsModal();
 
@@ -140,7 +144,11 @@ function clearAllData() {
   ) {
     state.expenses = [];
     state.budget = 500;
-    saveStateToStorage();
+    const saved = saveStateToStorage();
+    if (!saved) {
+      alert("Nie udalo sie wyczyscic danych w localStorage.");
+      return;
+    }
     updateDashboard();
     closeSettingsModal();
   }
