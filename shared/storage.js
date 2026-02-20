@@ -3,7 +3,6 @@ function saveStateToStorage() {
     localStorage.setItem("expenseTrackerState", JSON.stringify(state));
     return true;
   } catch (error) {
-    console.error("Blad zapisu do localStorage:", error);
     return false;
   }
 }
@@ -16,6 +15,6 @@ function loadStateFromStorage() {
       Object.assign(state, parsed);
     }
   } catch (error) {
-    console.error("Blad odczytu z localStorage:", error);
+    console.error("Error loadStateFromStorage:", error);
   }
 }

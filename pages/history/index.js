@@ -27,8 +27,6 @@ function setupHistory() {
       renderHistory();
     });
   }
-
-  // Filtry historii
   document.querySelectorAll(".filter-tabs .tab").forEach((tab) => {
     tab.addEventListener("click", (e) => {
       document
@@ -40,15 +38,11 @@ function setupHistory() {
     });
   });
 }
-
-// Renderowanie historii
 function renderHistory() {
   const container = document.getElementById("history-list");
 
   let filteredExpenses = [...state.expenses];
   const now = new Date();
-
-  // Filtrowanie według wybranego okresu
   if (state.currentFilter === "week") {
     const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
     filteredExpenses = filteredExpenses.filter(
@@ -83,8 +77,6 @@ function renderHistory() {
         `;
     return;
   }
-
-  // Grupowanie po miesiącach
   const groupedByMonth = groupExpensesByMonth(filteredExpenses);
 
   container.innerHTML = Object.entries(groupedByMonth)
@@ -105,8 +97,6 @@ function matchesHistorySearch(expense, term) {
   const categoryName = getCategoryName(expense.category).toLowerCase();
   return description.includes(term) || categoryName.includes(term);
 }
-
-// Grupowanie wydatków po miesiącach
 function groupExpensesByMonth(expenses) {
   const grouped = {};
 
@@ -122,8 +112,6 @@ function groupExpensesByMonth(expenses) {
 
   return grouped;
 }
-
-// Tworzenie karty miesiąca
 function createMonthCard(monthKey, expenses) {
   const [year, month] = monthKey.split("-");
   const monthName = getMonthName(parseInt(month) - 1);

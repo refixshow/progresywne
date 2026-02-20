@@ -1,4 +1,3 @@
-// Kategorie (proste literki zamiast emoji)
 const categoryIcons = {
     jedzenie: 'JED',
     transport: 'TRA',
@@ -59,3 +58,4 @@ function updateAllCategorySelects() {
         }
     });
 }
+

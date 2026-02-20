@@ -1,5 +1,3 @@
-// dashboard.js - logika dla strony głównej
-
 document.addEventListener("DOMContentLoaded", () => {
   initializeApp().then(() => {
     setupDashboard();
@@ -8,8 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function setupDashboard() {
   updateDashboard();
-
-  // Modal ustawień
   const settingsBtn = document.getElementById("settings-btn");
   const closeSettings = document.getElementById("close-settings");
   const saveSettings = document.getElementById("save-settings");
@@ -36,14 +32,10 @@ function setupDashboard() {
     addCategoryBtn.addEventListener("click", handleAddCategory);
   }
 }
-
-// Aktualizacja dashboardu
 function updateDashboard() {
   const spent = calculateTotalSpent();
   const remaining = state.budget - spent;
   const percentage = (spent / state.budget) * 100;
-
-  // Aktualizacja liczb
   document.getElementById("budget-limit").textContent =
     `${state.budget.toFixed(2)} zł`;
   document.getElementById("spent-amount").textContent =
@@ -52,24 +44,16 @@ function updateDashboard() {
     `${remaining.toFixed(2)} zł pozostało`;
   document.getElementById("budget-percent").textContent =
     `${percentage.toFixed(1)}% wykorzystane`;
-
-  // Aktualizacja paska postępu
   const progressFill = document.getElementById("progress-fill");
   progressFill.style.width = `${Math.min(percentage, 100)}%`;
-
-  // Zmiana kolorów w zależności od wydatków
   progressFill.classList.remove("warning", "danger");
   if (percentage >= 90) {
     progressFill.classList.add("danger");
   } else if (percentage >= 70) {
     progressFill.classList.add("warning");
   }
-
-  // Renderowanie ostatnich wydatków
   renderRecentExpenses();
 }
-
-// Renderowanie ostatnich wydatków
 function renderRecentExpenses() {
   const container = document.getElementById("recent-list");
   const recent = state.expenses
@@ -125,7 +109,7 @@ function saveSettingsData() {
 
   const saved = saveStateToStorage();
   if (!saved) {
-    alert("Nie udalo sie zapisac ustawien. Sprawdz ilosc danych zapisanych w aplikacji.");
+    alert("error saveStateToStorage");
     return;
   }
   updateDashboard();
@@ -146,7 +130,7 @@ function clearAllData() {
     state.budget = 500;
     const saved = saveStateToStorage();
     if (!saved) {
-      alert("Nie udalo sie wyczyscic danych w localStorage.");
+      alert("error clearAllData");
       return;
     }
     updateDashboard();
@@ -158,7 +142,7 @@ function renderCategoriesList() {
   const container = document.getElementById("categories-list");
 
   if (!container) {
-    console.error("Container categories-list not found!");
+    console.error("Error renderCategoriesList");
     return;
   }
 
@@ -192,7 +176,7 @@ function handleAddCategory() {
   const icon = iconInput.value.trim().toUpperCase();
 
   if (!name) {
-    alert("Proszę podać nazwę kategorii");
+    alert("error handleAddCategory name");
     return;
   }
 
@@ -203,7 +187,7 @@ function handleAddCategory() {
     renderCategoriesList();
     updateAllCategorySelects();
   } else {
-    alert("Kategoria o takiej nazwie już istnieje");
+    alert("kategoria juz istnieje");
   }
 }
 
