@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  initializeApp().then(() => {
-    setupDashboard();
-  });
+  initializeApp();
+  setupDashboard();
 });
 
 function setupDashboard() {
@@ -209,3 +208,4 @@ function handleRemoveCategory(categoryId) {
     updateAllCategorySelects();
   }
 }
+

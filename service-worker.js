@@ -1,6 +1,5 @@
-const CACHE_VERSION = "v8";
-const STATIC_CACHE = `static-${CACHE_VERSION}`;
-const DYNAMIC_CACHE = `dynamic-${CACHE_VERSION}`;
+const STATIC_CACHE = "static";
+const DYNAMIC_CACHE = "dynamic";
 
 const APP_SCOPE_PATH = new URL(self.registration.scope).pathname.replace(/\/$/, "");
 

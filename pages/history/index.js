@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  initializeApp().then(() => {
-    setupHistory();
-  });
+  initializeApp();
+  setupHistory();
 });
 
 let historySearchTerm = "";
@@ -138,3 +137,4 @@ function createMonthCard(monthKey, expenses) {
         </div>
     `;
 }
+

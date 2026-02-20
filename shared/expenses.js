@@ -1,5 +1,6 @@
 function calculateTotalSpent(filterType = "month") {
   const now = new Date();
+
   const filtered = state.expenses.filter((expense) => {
     const expenseDate = new Date(expense.date);
 
@@ -22,6 +23,7 @@ function createExpenseCard(expense) {
   const icon = getCategoryIcon(expense.category);
   const categoryName = getCategoryName(expense.category);
   const formattedDate = formatDate(expense.date);
+
   const receiptImage = expense.receipt
     ? `<img src="${expense.receipt}" alt="Paragon" class="expense-receipt" onclick="showReceiptFullScreen('${expense.receipt}')">`
     : "";

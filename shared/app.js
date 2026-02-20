@@ -1,36 +1,28 @@
-let appInitializationPromise = null;
+let isAppInitialized = false;
 let notificationIntervalId = null;
 
 function initializeApp() {
-  if (appInitializationPromise) {
-    return appInitializationPromise;
+  if (isAppInitialized) {
+    return;
   }
 
-  appInitializationPromise = (async () => {
-    await registerServiceWorker();
+  isAppInitialized = true;
 
-    loadStateFromStorage();
+  registerServiceWorker();
+  loadStateFromStorage();
+  applyTheme(state.theme);
+  checkOnlineStatus();
 
-    applyTheme(state.theme);
+  if (state.notificationsEnabled) {
+    requestNotificationPermission();
+  }
 
-    checkOnlineStatus();
+  checkDailyNotification();
 
-    if (state.notificationsEnabled) {
-      requestNotificationPermission();
-    }
+  if (!notificationIntervalId) {
+    notificationIntervalId = setInterval(checkDailyNotification, 60 * 60 * 1000);
+  }
 
-    checkDailyNotification();
-
-    if (!notificationIntervalId) {
-      notificationIntervalId = setInterval(
-        checkDailyNotification,
-        60 * 60 * 1000,
-      );
-    }
-
-    window.addEventListener("online", checkOnlineStatus);
-    window.addEventListener("offline", checkOnlineStatus);
-  })();
-
-  return appInitializationPromise;
+  window.addEventListener("online", checkOnlineStatus);
+  window.addEventListener("offline", checkOnlineStatus);
 }

@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  initializeApp().then(() => {
-    setupAddExpenseForm();
-    loadCategoriesIntoSelect();
-  });
+  initializeApp();
+  setupAddExpenseForm();
+  loadCategoriesIntoSelect();
 });
 
 function setupAddExpenseForm() {
@@ -99,3 +98,4 @@ function loadCategoriesIntoSelect() {
       .map((cat) => `<option value="${cat.id}">${cat.name}</option>`)
       .join("");
 }
+
