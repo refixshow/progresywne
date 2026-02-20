@@ -1,14 +1,21 @@
-const serviceWorkerScriptBaseUrl = document.currentScript
-    ? document.currentScript.src
-    : window.location.href;
+function resolveAppBasePath() {
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    if (parts.length === 0) return '/';
+
+    const lastPart = parts[parts.length - 1];
+    const looksLikeFile = lastPart.includes('.');
+    const baseParts = looksLikeFile ? parts.slice(0, -1) : parts;
+
+    return `/${baseParts.join('/')}/`;
+}
 
 async function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) return;
 
     try {
-        const swUrl = new URL('../../service-worker.js', serviceWorkerScriptBaseUrl);
-        const scopePath = new URL('.', swUrl).pathname;
-        const registration = await navigator.serviceWorker.register(swUrl.href, { scope: scopePath });
+        const appBasePath = resolveAppBasePath();
+        const swUrl = new URL(`${appBasePath}service-worker.js`, window.location.origin);
+        const registration = await navigator.serviceWorker.register(swUrl.href, { scope: appBasePath });
         console.log('Service Worker zarejestrowany:', registration);
 
         navigator.serviceWorker.addEventListener('controllerchange', () => {
