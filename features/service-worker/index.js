@@ -1,9 +1,12 @@
+const serviceWorkerScriptBaseUrl = document.currentScript
+    ? document.currentScript.src
+    : window.location.href;
+
 async function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) return;
 
     try {
-        const scriptBaseUrl = document.currentScript?.src || window.location.href;
-        const swUrl = new URL('../../service-worker.js', scriptBaseUrl);
+        const swUrl = new URL('../../service-worker.js', serviceWorkerScriptBaseUrl);
         const scopePath = new URL('.', swUrl).pathname;
         const registration = await navigator.serviceWorker.register(swUrl.href, { scope: scopePath });
         console.log('Service Worker zarejestrowany:', registration);
